@@ -58,7 +58,12 @@
 // export default App;
 
 
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 import { useEffect, useState } from "react";
 
@@ -67,45 +72,81 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 
 import Login from "./pages/Login";
-
+import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
-
 
 function App() {
 
   const [user, setUser] = useState(null);
 
   const [loading, setLoading] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
+
+  const [darkMode, setDarkMode] = useState(() => {
+
+    const savedTheme =
+      localStorage.getItem("darkMode");
+
+    return savedTheme === "true";
+
+  });
+
+  /* AUTH STATE */
 
   useEffect(() => {
 
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe =
+      onAuthStateChanged(auth, (currentUser) => {
 
-      setUser(currentUser);
+        setUser(currentUser);
 
-      setLoading(false);
-    });
+        setLoading(false);
+
+      });
 
     return () => unsubscribe();
 
   }, []);
 
+  /* SAVE DARK MODE */
+
+  useEffect(() => {
+
+    localStorage.setItem(
+      "darkMode",
+      darkMode
+    );
+
+  }, [darkMode]);
+
   if (loading) {
+
     return (
+
       <div className="h-screen bg-black text-white flex items-center justify-center text-3xl">
         Loading...
       </div>
+
     );
+
   }
 
   return (
+
     <BrowserRouter>
 
       <Routes>
 
+        {/* LANDING PAGE */}
+
         <Route
           path="/"
+          element={<LandingPage />}
+        />
+
+        {/* LOGIN */}
+
+        <Route
+          path="/login"
           element={
             user
               ? <Navigate to="/dashboard" />
@@ -113,14 +154,18 @@ function App() {
           }
         />
 
+        {/* DASHBOARD */}
+
         <Route
           path="/dashboard"
           element={
             user
-              ? <Dashboard
+              ? (
+                <Dashboard
                   darkMode={darkMode}
                   setDarkMode={setDarkMode}
                 />
+              )
               : <Navigate to="/" />
           }
         />
@@ -128,6 +173,7 @@ function App() {
       </Routes>
 
     </BrowserRouter>
+
   );
 }
 

@@ -1,22 +1,70 @@
 import {
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
   XAxis,
   Tooltip,
   ResponsiveContainer,
+  CartesianGrid,
 } from "recharts";
 
-const data = [
-  { day: "Mon", tasks: 4 },
-  { day: "Tue", tasks: 7 },
-  { day: "Wed", tasks: 5 },
-  { day: "Thu", tasks: 9 },
-  { day: "Fri", tasks: 6 },
-  { day: "Sat", tasks: 11 },
-];
+function AnalyticsChart({ tasks = [] }) {
 
-function AnalyticsChart() {
+  const completedTasks =
+    tasks.filter((task) =>
+      task.completed
+    ).length;
+
+  const pendingTasks =
+    tasks.filter((task) =>
+      !task.completed
+    ).length;
+
+  const highPriority =
+    tasks.filter((task) =>
+      task.priority === "High"
+    ).length;
+
+  const mediumPriority =
+    tasks.filter((task) =>
+      task.priority === "Medium"
+    ).length;
+
+  const lowPriority =
+    tasks.filter((task) =>
+      task.priority === "Low"
+    ).length;
+
+  const data = [
+
+    {
+      name: "Completed",
+      value: completedTasks,
+    },
+
+    {
+      name: "Pending",
+      value: pendingTasks,
+    },
+
+    {
+      name: "High",
+      value: highPriority,
+    },
+
+    {
+      name: "Medium",
+      value: mediumPriority,
+    },
+
+    {
+      name: "Low",
+      value: lowPriority,
+    },
+
+  ];
+
   return (
+
     <div className="mt-10 bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-xl">
 
       <h2 className="text-3xl font-bold mb-8">
@@ -27,28 +75,34 @@ function AnalyticsChart() {
 
         <ResponsiveContainer width="100%" height="100%">
 
-          <LineChart data={data}>
+          <BarChart data={data}>
+
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="#333"
+            />
 
             <XAxis
-              dataKey="day"
-              stroke="#8884d8"
+              dataKey="name"
+              stroke="#aaa"
             />
 
             <Tooltip />
 
-            <Line
-              type="monotone"
-              dataKey="tasks"
-              stroke="#a855f7"
-              strokeWidth={4}
+            <Bar
+              dataKey="value"
+              fill="#a855f7"
+              radius={[10, 10, 0, 0]}
             />
 
-          </LineChart>
+          </BarChart>
 
         </ResponsiveContainer>
 
       </div>
+
     </div>
+
   );
 }
 

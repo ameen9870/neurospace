@@ -10,10 +10,9 @@ function Hero() {
         transition={{ duration: 1 }}
         className="text-7xl font-bold leading-tight"
       >
-        Your AI Powered
-        <span className="text-purple-500"> Productivity</span>
+        Smart Productivity
+        <span className="text-purple-500"> Workspace</span>
         <br />
-        Workspace
       </motion.h1>
 
       <motion.p
@@ -22,8 +21,7 @@ function Hero() {
         transition={{ delay: 0.5 }}
         className="text-gray-400 mt-6 max-w-2xl text-lg"
       >
-        Organize tasks, manage goals, and supercharge your workflow
-        with futuristic AI tools.
+        Organize tasks, manage goals, and supercharge your workflow.
       </motion.p>
 
       <motion.button

@@ -50,13 +50,18 @@
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import DashboardCards from "../components/DashboardCards";
-import AIPanel from "../components/AIPanel";
+
 import TaskList from "../components/TaskList";
 import AnalyticsChart from "../components/AnalyticsChart";
-import Chatbot from "../components/Chatbot";
-import BackgroundEffects from "../components/BackgroundEffects";
 
+import BackgroundEffects from "../components/BackgroundEffects";
+import ProductivityCalendar from "../components/ProductivityCalendar";
+
+import { useState } from "react";
+import UserProfileCard from "../components/UserProfileCard";
 function Dashboard({ darkMode, setDarkMode }) {
+  const [allTasks, setAllTasks] = useState([]);
+
   return (
     <div
       className={`flex flex-col md:flex-row min-h-screen overflow-hidden transition-all duration-300 ${
@@ -94,7 +99,7 @@ function Dashboard({ darkMode, setDarkMode }) {
           <h1 className="text-3xl md:text-5xl font-bold leading-tight">
 
             <span className="bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
-              Welcome Back 👋
+              Welcome CRYBABY...... 👋
             </span>
 
           </h1>
@@ -111,15 +116,18 @@ function Dashboard({ darkMode, setDarkMode }) {
 
           {/* DASHBOARD COMPONENTS */}
 
-          <DashboardCards darkMode={darkMode} />
+          <DashboardCards tasks={allTasks} />
 
-          <AIPanel />
+        
+          <UserProfileCard />
 
-          <TaskList />
+          <TaskList setAllTasks={setAllTasks}/>
+          
+          <ProductivityCalendar />
+          
+          <AnalyticsChart tasks={allTasks}/>
 
-          <AnalyticsChart />
-
-          <Chatbot />
+          
 
         </div>
 

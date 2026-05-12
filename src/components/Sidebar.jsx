@@ -21,11 +21,6 @@ function Sidebar() {
         </button>
 
         <button className="flex items-center gap-3 p-4 rounded-2xl hover:bg-white/10 transition">
-          <Brain size={22} />
-          AI Assistant
-        </button>
-
-        <button className="flex items-center gap-3 p-4 rounded-2xl hover:bg-white/10 transition">
           <CheckSquare size={22} />
           Tasks
         </button>
