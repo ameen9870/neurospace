@@ -68,7 +68,7 @@ function Dashboard({ darkMode, setDarkMode }) {
 
       {/* BACKGROUND EFFECTS */}
 
-      {/* <BackgroundEffects /> */}
+      <BackgroundEffects />
 
       {/* SIDEBAR */}
 
@@ -117,9 +117,9 @@ function Dashboard({ darkMode, setDarkMode }) {
 
           <TaskList />
 
-          {/* <AnalyticsChart /> */}
+          <AnalyticsChart />
 
-          {/* <Chatbot /> */}
+          <Chatbot />
 
         </div>
 
